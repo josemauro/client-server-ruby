@@ -4,18 +4,6 @@ include Socket::Constants
 
 port = ARGV[1]
 
-
-#socket = Socket.new(AF_INET, SOCK_STREAM, 0)
-
-#sockaddr = Socket.sockaddr_in(Integer(port), 'localhost')
-
-#socket.bind(sockaddr)
-
-#socket.listen(5)
-
-#socket = TCPServer.new(Integer(port))  
-
-
 sockaddr = Socket.sockaddr_in(Integer(port), "127.0.0.1")
 
 socket = Socket.new(AF_INET, SOCK_STREAM, 0)
@@ -26,7 +14,8 @@ socket.bind(sockaddr)
 
 socket.listen(8)
 	
-path_of_file = "/"
+path_of_file = "/" # path_of_file define the path to requested file
+
 loop do
 	Thread.fork(socket.accept) do |client| 
 		request = client[0].recvfrom(1024)[0] # get the packet HTTP
